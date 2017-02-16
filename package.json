@@ -1,6 +1,6 @@
 {
   "name": "generator-dmodule",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Drupal 7 module generator",
   "author": "AWD-Studio <info@awd.com.ua> (https://github.com/awd-studio)",
   "files": [
