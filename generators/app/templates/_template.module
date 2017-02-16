@@ -1,0 +1,28 @@
+<?php
+<% if (hooks.hook_permission) { %>
+  /**
+ * Implements hook_permission().
+ */
+function <%= moduleName %>_permission() {
+  return array(
+    '<%= moduleName %>' => array(
+      'title'       => t('Configure <%= moduleNameHuman %> module'),
+      'description' => t('Allow users to configure <%= moduleNameHuman %> module'),
+      //'restrict access' => TRUE,
+    ),
+  );
+}<% } %>
+<% if (hooks.hook_menu) { %>
+/**
+ * Implements hook_menu().
+ */
+function <%= moduleName %>_menu() {
+  $items['<%= moduleName %>_path'] = array(
+    'page callback'    => '<%= moduleName %>_page_callback',
+    'access arguments' => array('access content'),
+    'type'             => MENU_CALLBACK,
+    'file'             => 'includes/<%= moduleName %>.pages.inc',
+  );
+
+  return $items;
+}<% } %>

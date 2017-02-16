@@ -1,0 +1,61 @@
+<?php
+<% if (hooks.hook_schema) { %>
+/**
+ * Implements hook_schema().
+ */
+function <%= moduleName %>_schema() {
+  $schema['<%= moduleName %>'] = array(
+    'description' => 'The base table for <%= moduleNameHuman %>.',
+    'fields'      => array(
+      'id'      => array(
+        'description' => 'The primary identifier.',
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+      ),
+      'title'   => array(
+        'description' => 'The title.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+      ),
+      'status'  => array(
+        'description' => 'Boolean indicating of status.',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 1,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp.',
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
+      ),
+    ),
+    'unique keys' => array(
+      'id' => array('vid'),
+    ),
+    'primary key' => array('nid'),
+  );
+
+  return $schema;
+}<% } %>
+<% if (hooks.hook_install) { %>
+/**
+ * Implements hook_install().
+ */
+function <%= moduleName %>_install() {
+  $t = get_t();
+
+  //variable_set('my_var', '');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function <%= moduleName %>_uninstall() {
+  //variable_del('my_var');
+
+  cache_clear_all();
+}<% } %>
