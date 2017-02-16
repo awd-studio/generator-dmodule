@@ -120,11 +120,9 @@ module.exports = Generator.extend({
        * @returns {XML|string}
        */
       function toCamelCase(str) {
-        console.log('Var 2 = ' + str);
         return str.replace(/_([a-z])/g, function (g) { return g[1].toUpperCase(); });
       }
 
-      console.log('Var 1 = ' + this.moduleName);
       this.moduleNameCamel = toCamelCase(this.moduleName);
       this.moduleNameHuman = props.moduleNameHuman;
       this.moduleDesc = props.moduleDesc;
