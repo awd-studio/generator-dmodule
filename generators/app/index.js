@@ -44,20 +44,22 @@ module.exports = Generator.extend({
         default: false
       }, {
         when: function (response) {
-          return response.moduleNeedHooks;
+          return response.moduleNeedHooks | response.moduleFilesInstall;
         },
         type: 'checkbox',
         name: 'moduleHooks',
         message: 'Choose needle hooks:',
         choices: function (response) {
-          var hooks = [
-            {
-              name: 'hook_permission',
-            },
-            {
-              name: 'hook_menu'
-            }
-          ];
+          var hooks = [];
+
+          if (response.moduleNeedHooks) {
+            hooks.unshift({
+                name: 'hook_permission',
+              },
+              {
+                name: 'hook_menu'
+              });
+          }
           if (response.moduleFilesInstall) {
             hooks.unshift({
                 name: 'hook_install',
@@ -144,7 +146,7 @@ module.exports = Generator.extend({
         this.assets.css = hasFeature('css', props.moduleAssetsFiles);
       }
 
-      if (props.moduleHooks) {
+      if (props.moduleHooks | props.moduleFilesInstall) {
         for (var i = 0, c = props.moduleHooks.length; i < c; i++) {
           var hook = props.moduleHooks[i];
           this.hooks[hook] = hasFeature(hook, props.moduleHooks);
