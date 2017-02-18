@@ -38,6 +38,14 @@ module.exports = Generator.extend({
         message: 'Do you need ' + chalk.blue(this.moduleName + '.install') + ' file?',
         default: false
       }, {
+        type: 'confirm',
+        name: 'moduleNeedHooks',
+        message: 'Implement some hooks for you?',
+        default: false
+      }, {
+        when: function (response) {
+          return response.moduleNeedHooks;
+        },
         type: 'checkbox',
         name: 'moduleHooks',
         message: 'Choose needle hooks:',
@@ -135,9 +143,11 @@ module.exports = Generator.extend({
         this.assets.css = hasFeature('css', props.moduleAssetsFiles);
       }
 
-      for (var i = 0, c = props.moduleHooks.length; i < c; i++) {
-        var hook = props.moduleHooks[i];
-        this.hooks[hook] = hasFeature(hook, props.moduleHooks);
+      if (props.moduleHooks) {
+        for (var i = 0, c = props.moduleHooks.length; i < c; i++) {
+          var hook = props.moduleHooks[i];
+          this.hooks[hook] = hasFeature(hook, props.moduleHooks);
+        }
       }
 
     }.bind(this));
