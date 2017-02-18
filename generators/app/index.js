@@ -89,7 +89,7 @@ module.exports = Generator.extend({
         message: 'Choose assets types:',
         choices: [
           {
-            name: 'js',
+            name: 'js'
           },
           {
             name: 'css'
@@ -114,8 +114,9 @@ module.exports = Generator.extend({
       /**
        * Check hooks
        *
-       * @param hook
        * @returns {boolean}
+       * @param item
+       * @param props
        */
       function hasFeature(item, props) {
         return props.indexOf(item) !== -1;
