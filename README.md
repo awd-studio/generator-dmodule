@@ -68,7 +68,7 @@ yo dmodule
 
 ## License
 
-MIT © [AWD-Studio]()
+MIT © AWD-Studio
 
 
 [drupal-yeomen-image]: https://blogpost.pp.ua/sites/default/files/post/images/drupal_yeoman.png
