@@ -1,6 +1,11 @@
 <?php
-<% if (hooks.hook_permission) { %>
-  /**
+
+/**
+ * Define module path
+ */
+define('<%= modulePathConstant %>', drupal_get_path('module', '<%= moduleName %>'));<% if (hooks.hook_permission) { %>
+
+/**
  * Implements hook_permission().
  */
 function <%= moduleName %>_permission() {
@@ -11,8 +16,8 @@ function <%= moduleName %>_permission() {
       //'restrict access' => TRUE,
     ),
   );
-}<% } %>
-<% if (hooks.hook_menu) { %>
+}<% } %><% if (hooks.hook_menu) { %>
+
 /**
  * Implements hook_menu().
  */

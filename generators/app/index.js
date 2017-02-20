@@ -54,7 +54,7 @@ module.exports = Generator.extend({
 
           if (response.moduleNeedHooks) {
             hooks.unshift({
-                name: 'hook_permission',
+                name: 'hook_permission'
               },
               {
                 name: 'hook_menu'
@@ -84,8 +84,8 @@ module.exports = Generator.extend({
         default: false
       }, {
         when: function (response) {
-         return response.moduleAssets;
-         },
+          return response.moduleAssets;
+        },
         type: 'checkbox',
         name: 'moduleAssetsFiles',
         message: 'Choose assets types:',
@@ -103,6 +103,14 @@ module.exports = Generator.extend({
           }
           return true;
         }
+      }, {
+        when: function (response) {
+          return response.moduleAssetsFiles && response.moduleHooks.indexOf('hook_menu') != -1;
+        },
+        type: 'confirm',
+        name: 'moduleAssetsAddToPage',
+        message: 'Would you like attach assets to page?',
+        default: true
       }
     ];
 
@@ -131,22 +139,37 @@ module.exports = Generator.extend({
        * @returns {XML|string}
        */
       function toCamelCase(str) {
-        return str.replace(/_([a-z])/g, function (g) { return g[1].toUpperCase(); });
+        return str.replace(/_([a-z])/g, function (g) {
+          return g[1].toUpperCase();
+        });
+      }
+
+      /**
+       * Convert string to UPPER CASE
+       *
+       * @param str
+       * @returns {XML|string}
+       */
+      function toUpperCase(str) {
+        return str.toUpperCase();
       }
 
       this.moduleNameCamel = toCamelCase(this.moduleName);
+      this.moduleNameUpper = toUpperCase(this.moduleName);
+      this.modulePathConstant = this.moduleNameUpper + '_PATH';
       this.moduleNameHuman = props.moduleNameHuman;
       this.moduleDesc = props.moduleDesc;
       this.modulePackage = props.modulePackage;
       this.moduleDependencies = props.moduleDependencies.length !== 0 ? 'dependencies[] = ' + props.moduleDependencies.split(' ').join('\ndependencies[] = ') : '';
       this.moduleFilesInstall = props.moduleFilesInstall;
+      this.moduleAssetsAddToPage = props.moduleAssetsAddToPage;
 
       if (props.moduleAssets) {
         this.assets.js = hasFeature('js', props.moduleAssetsFiles);
         this.assets.css = hasFeature('css', props.moduleAssetsFiles);
       }
 
-      if (props.moduleHooks | props.moduleFilesInstall) {
+      if (props.moduleHooks || props.moduleFilesInstall) {
         for (var i = 0, c = props.moduleHooks.length; i < c; i++) {
           var hook = props.moduleHooks[i];
           this.hooks[hook] = hasFeature(hook, props.moduleHooks);
@@ -204,7 +227,7 @@ module.exports = Generator.extend({
      */
     if (this.assets.js) {
       this.fs.copyTpl(
-        this.templatePath('assets/js/_template.jstpl'),
+        this.templatePath('assets/js/_template.js'),
         this.destinationPath('assets/js/' + mn + '.js'),
         this
       );
@@ -215,7 +238,7 @@ module.exports = Generator.extend({
      */
     if (this.assets.css) {
       this.fs.copyTpl(
-        this.templatePath('assets/css/_template.csstpl'),
+        this.templatePath('assets/css/_template.css'),
         this.destinationPath('assets/css/' + mn + '.css'),
         this
       );
