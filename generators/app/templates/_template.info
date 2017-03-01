@@ -1,4 +1,4 @@
-name        = <%= moduleName %>
+name        = <%= moduleNameHuman %>
 description = <%= moduleDesc %>
 package     = <%= modulePackage %>
 version     = 7.x-1.x-dev
