@@ -23,6 +23,7 @@ function <%= moduleName %>_permission() {
  */
 function <%= moduleName %>_menu() {
   $items['<%= moduleName %>_path'] = array(
+    'title'            => '<%= moduleNameHuman %>',
     'page callback'    => '<%= moduleName %>_page_callback',
     'access arguments' => array('access content'),
     'type'             => MENU_CALLBACK,
