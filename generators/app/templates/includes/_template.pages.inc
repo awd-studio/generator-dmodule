@@ -6,11 +6,11 @@
 function <%= moduleName %>_page_callback() {
   $output = array();
   <% if (moduleAssetsAddToPage) { %><% if (assets.css) { %>
-  $page['#attached']['css'] = array(
+  $output['#attached']['css'] = array(
     <%= modulePathConstant %> . '/assets/css/<%= moduleName %>.css',
   );<% } %>
   <% if (assets.js) { %>
-  $page['#attached']['js'] = array(
+    $output['#attached']['js'] = array(
     <%= modulePathConstant %> . '/assets/js/<%= moduleName %>.js',
   );<% } %>
   <% } %>

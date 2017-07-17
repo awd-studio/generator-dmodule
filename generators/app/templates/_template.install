@@ -20,6 +20,12 @@ function <%= moduleName %>_schema() {
         'not null'    => TRUE,
         'default'     => '',
       ),
+      'description'   => array(
+        'description' => 'The description.',
+        'type'        => 'text',
+        'not null'    => TRUE,
+        'size'        => 'big',
+      ),
       'status'  => array(
         'description' => 'Boolean indicating of status.',
         'type'        => 'int',
@@ -34,9 +40,9 @@ function <%= moduleName %>_schema() {
       ),
     ),
     'unique keys' => array(
-      'id' => array('vid'),
+      'id' => array('id'),
     ),
-    'primary key' => array('nid'),
+    'primary key' => array('id'),
   );
 
   return $schema;
