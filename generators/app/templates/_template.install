@@ -54,14 +54,15 @@ function <%= moduleName %>_schema() {
 function <%= moduleName %>_install() {
   $t = get_t();
 
-  //variable_set('my_var', '');
+  //$config = array();
+  //variable_set('<%= moduleName %>_var', $config);
 }
 
 /**
  * Implements hook_uninstall().
  */
 function <%= moduleName %>_uninstall() {
-  //variable_del('my_var');
+  //variable_del('<%= moduleName %>_*');
 
   cache_clear_all();
 }<% } %>
